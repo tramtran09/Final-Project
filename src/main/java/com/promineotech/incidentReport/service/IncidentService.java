@@ -26,7 +26,7 @@ public class IncidentService {
 	}
 	
 	public Iterable<Incident> getIncident(){
-		return repo.findAll();
+		return repo.findAll();		
 	}
 	
 	public Incident createIncident(Incident incidents) {

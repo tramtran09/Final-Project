@@ -1,16 +1,18 @@
 package com.promineotech.incidentReport.entity;
 
 
-import java.util.Set;
+import javax.persistence.Column;
 
+//import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-//import javax.persistence.OneToOne;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,13 +26,16 @@ public class Incident {
 	private String incidentDescription;
 	private String injuryDescription;
 	
-	//private Set<IncidentCategory> incidentCategory;
+//	private Set<IncidentCategory> incidentCategory;
+	
+	private IncidentCategory incidentCategory;
 	
 	@JsonIgnore
 	private Employee employees;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	public Long getId() {
 		return id;
 	}
@@ -68,7 +73,9 @@ public class Incident {
 		this.date = date;
 	}
 	
-//	@OneToOne(mappedBy = "incident")
+//	//@OneToOne(mappedBy = "incident")
+//	@OneToOne(cascade=CascadeType.ALL)
+//	@JoinColumn(name= "incidentCategory_id", referencedColumnName= "id")
 //	public Set<IncidentCategory> getIncidentCategory() {
 //		return incidentCategory;
 //	}
@@ -83,6 +90,15 @@ public class Incident {
 	}
 	public void setEmployee(Employee employees) {
 		this.employees = employees;
+	}
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name= "incidentCategory_id", referencedColumnName= "id")
+	public IncidentCategory getIncidentCategory() {
+		return incidentCategory;
+	}
+	public void setIncidentCategory(IncidentCategory incidentCategory) {
+		this.incidentCategory = incidentCategory;
 	}
 	
 }

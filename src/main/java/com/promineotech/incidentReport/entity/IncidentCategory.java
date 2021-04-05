@@ -1,12 +1,13 @@
 package com.promineotech.incidentReport.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//import javax.persistence.OneToOne;
+import javax.persistence.OneToOne;
 
-//import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class IncidentCategory {
@@ -22,13 +23,13 @@ public class IncidentCategory {
 	private String eyeLoss;
 	private String death;
 	
-	//@JsonIgnore
-	//private Incident incidents;
+	@JsonIgnore
+	private Incident incidents;
 	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	//@OneToOne(mappedBy = "Incident")
+	@Column(name = "id")
 	public Long getId() {
 		return id;
 	}
@@ -127,14 +128,14 @@ public class IncidentCategory {
 		this.death = death;
 	}
 
+	@OneToOne(mappedBy= "incidentCategory")
+	public Incident getIncidents() {
+		return incidents;
+	}
 
-//	public Incident getIncidents() {
-//		return incidents;
-//	}
-//
-//
-//	public void setIncidents(Incident incidents) {
-//		this.incidents = incidents;
-//	}
+
+	public void setIncidents(Incident incidents) {
+		this.incidents = incidents;
+	}
 
 }
