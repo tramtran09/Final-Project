@@ -1,11 +1,14 @@
 package com.promineotech.incidentReport.entity;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,6 +21,8 @@ public class Facility {
 	private String state;
 	private String city; 
 	private String zip;
+	
+	private Set<EmployeeAtFacility> employeeAtFacilities;
 	
 	@JsonIgnore
 	private Employee employees;
@@ -62,11 +67,19 @@ public class Facility {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "empId")
+	@JoinColumn(name = "employeeId")
 	public Employee getEmployee() {
 		return employees;
 	}
 	public void setEmployee(Employee employees) {
 		this.employees = employees;
+	}
+	
+	@OneToMany(mappedBy = "EmployeeAtFacility")
+	public Set<EmployeeAtFacility> getEmployeeAtFacilities() {
+		return employeeAtFacilities;
+	}
+	public void setEmployeeAtFacilities(Set<EmployeeAtFacility> employeeAtFacilities) {
+		this.employeeAtFacilities = employeeAtFacilities;
 	}
 }

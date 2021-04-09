@@ -41,7 +41,7 @@ public class IncidentService {
 			updateInc.setLocation(incident.getLocation());
 			updateInc.setIncidentDescription(incident.getIncidentDescription());
 			updateInc.setInjuryDescription(incident.getInjuryDescription());
-			//updateInc.setIncidentCategory(incident.getIncidentCategory());
+			updateInc.setIncidentCategory(incident.getIncidentCategory());
 			return repo.save(updateInc);
 		} catch (Exception e) {
 			logger.error("Exception occured while trying to add incident: " + id, e);
