@@ -14,21 +14,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("facility/{id}/employees")
-public class EmployeesAtFacilityController {
+public class EmpAtFacilityController {
 
 	@Autowired
-	private EmployeesAtFacilityController service;
+	private EmpAtFacilityController service;
+	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Object> fillFacility(@RequestBody Set<Long> employeeAtFacilityIds, @PathVariable Long id) {
+	public ResponseEntity<Object> fillFacility(@RequestBody Set<Long> empAtFacilityId, @PathVariable Long id) {
 		try {
-			return new ResponseEntity<Object>(service.submitNewFacility(employeeAtFacilityIds, id), HttpStatus.CREATED );
+			return new ResponseEntity<Object>(service.submitNewFacility(empAtFacilityId, id), HttpStatus.CREATED );
 		} catch (Exception e) {
 			return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
 		}
 	}
-	private MultiValueMap<String, String> submitNewFacility(Set<Long> employeeAtFacilityIds, Long id) {
+
+	private MultiValueMap<String, String> submitNewFacility(Set<Long> empAtFacilityId, Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-}
 
+
+
+}

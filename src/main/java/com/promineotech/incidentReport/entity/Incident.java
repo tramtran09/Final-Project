@@ -26,8 +26,6 @@ public class Incident {
 	private String incidentDescription;
 	private String injuryDescription;
 	
-//	private Set<IncidentCategory> incidentCategory;
-	
 	private IncidentCategory incidentCategory;
 	
 	@JsonIgnore
@@ -72,16 +70,6 @@ public class Incident {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	
-//	//@OneToOne(mappedBy = "incident")
-//	@OneToOne(cascade=CascadeType.ALL)
-//	@JoinColumn(name= "incidentCategory_id", referencedColumnName= "id")
-//	public Set<IncidentCategory> getIncidentCategory() {
-//		return incidentCategory;
-//	}
-//	public void setIncidentCategory(Set<IncidentCategory> incidentCategory) {
-//		this.incidentCategory = incidentCategory;
-//	}
 	
 	@ManyToOne
 	@JoinColumn(name = "empId")

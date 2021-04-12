@@ -26,7 +26,6 @@ public class IncidentCategory {
 	@JsonIgnore
 	private Incident incidents;
 	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
@@ -38,56 +37,45 @@ public class IncidentCategory {
 		this.id = id;
 	}
 
-
 	public String getObservation() {
 		return observation;
 	}
-
 
 	public void setObservation(String observation) {
 		this.observation = observation;
 	}
 
-
 	public String getNearMiss() {
 		return nearMiss;
 	}
-
 
 	public void setNearMiss(String nearMiss) {
 		this.nearMiss = nearMiss;
 	}
 
-
 	public String getFirstAid() {
 		return firstAid;
 	}
-
 
 	public void setFirstAid(String firstAid) {
 		this.firstAid = firstAid;
 	}
 
-
 	public String getMedicalTreatment() {
 		return medicalTreatment;
 	}
-
 
 	public void setMedicalTreatment(String medicalTreatment) {
 		this.medicalTreatment = medicalTreatment;
 	}
 
-
 	public String getIllness() {
 		return illness;
 	}
 
-
 	public void setIllness(String illness) {
 		this.illness = illness;
 	}
-
 
 	public String getHospital24Hrs() {
 		return hospital24Hrs;
@@ -98,31 +86,25 @@ public class IncidentCategory {
 		this.hospital24Hrs = hospital24Hrs;
 	}
 
-
 	public String getAmputation() {
 		return amputation;
 	}
-
 
 	public void setAmputation(String amputation) {
 		this.amputation = amputation;
 	}
 
-
 	public String getEyeLoss() {
 		return eyeLoss;
 	}
-
 
 	public void setEyeLoss(String eyeLoss) {
 		this.eyeLoss = eyeLoss;
 	}
 
-
 	public String getDeath() {
 		return death;
 	}
-
 
 	public void setDeath(String death) {
 		this.death = death;
@@ -132,7 +114,6 @@ public class IncidentCategory {
 	public Incident getIncidents() {
 		return incidents;
 	}
-
 
 	public void setIncidents(Incident incidents) {
 		this.incidents = incidents;

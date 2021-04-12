@@ -12,19 +12,19 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class EmployeeAtFacility {
+public class EmpAtFacility {
 
 	private Long id;
 	
 	private Set<Facility> facilities;
 	
 	@JsonIgnore
-	private Employee employees;
+	private Employee employee;
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
@@ -35,10 +35,9 @@ public class EmployeeAtFacility {
 		this.id = id;
 	}
 
-	//@ManyToMany(mappedBy = "facilities")
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "employee_facility",
-	joinColumns = @JoinColumn(name = "employeeFacilitiesId", referencedColumnName = "id"),
+	joinColumns = @JoinColumn(name = "empAtFacilitiesId", referencedColumnName = "id"),
 	inverseJoinColumns = @JoinColumn(name = "facilityId", referencedColumnName = "id"))
 	public Set<Facility> getFacilities() {
 		return facilities;
@@ -51,11 +50,11 @@ public class EmployeeAtFacility {
 	@ManyToOne
 	@JoinColumn(name = "employeeId")
 	public Employee getEmployees() {
-		return employees;
+		return employee;
 	}
 
 	public void setEmployees(Employee employees) {
-		this.employees = employees;
+		this.employee = employees;
 	}
 	
 }
