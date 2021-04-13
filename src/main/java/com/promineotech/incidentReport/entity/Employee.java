@@ -2,6 +2,7 @@ package com.promineotech.incidentReport.entity;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +22,7 @@ public class Employee {
 	private Set<Facility> facilities;
 	private Set<Incident> incidents;
 	
+	private String hash;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
@@ -41,6 +43,7 @@ public class Employee {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	@Column(unique=true)
 	public String getUsername() {
 		return username;
 	}
@@ -74,6 +77,12 @@ public class Employee {
 	}
 	public void setIncidents(Set<Incident> incidents) {
 		this.incidents = incidents;
+	}
+	public String getHash() {
+		return hash;
+	}
+	public void setHash(String hash) {
+		this.hash = hash;
 	}
 	
 	
