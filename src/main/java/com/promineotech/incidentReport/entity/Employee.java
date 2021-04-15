@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.sun.istack.NotNull;
 
 @Entity
 public class Employee {
@@ -21,6 +25,8 @@ public class Employee {
 	
 	private Set<Facility> facilities;
 	private Set<Incident> incidents;
+	
+	private EmpAtFacility emp;
 	
 	private String hash;
 	@Id
@@ -44,6 +50,7 @@ public class Employee {
 		this.lastName = lastName;
 	}
 	@Column(unique=true)
+	@NotNull
 	public String getUsername() {
 		return username;
 	}
@@ -83,6 +90,15 @@ public class Employee {
 	}
 	public void setHash(String hash) {
 		this.hash = hash;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "employeeId")
+	public EmpAtFacility getEmp() {
+		return emp;
+	}
+	public void setEmp(EmpAtFacility emp) {
+		this.emp = emp;
 	}
 	
 	

@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,9 +23,8 @@ public class Facility {
 	private String city; 
 	private String zip;
 	
-	private Set<EmpAtFacility> empAtFacility;
+	private EmpAtFacility empAtFacility;
 	
-	@JsonIgnore
 	private Employee employee;
 	
 	@Id
@@ -77,11 +77,11 @@ public class Facility {
 //	@JoinTable(name = "empAtFacility",
 //	joinColumns = @JoinColumn(name = "facilityId", referencedColumnName = "id"),
 //	inverseJoinColumns = @JoinColumn(name = "empAtFacilityId", referencedColumnName = "id"))
-	@ManyToMany(mappedBy = "facilities")
-	public Set<EmpAtFacility> getEmpAtFacility() {
+	@OneToOne(mappedBy = "facilities")
+	public EmpAtFacility getEmpAtFacility() {
 		return empAtFacility;
 	}
-	public void setEmpAtFacility(Set<EmpAtFacility> empAtFacility) {
+	public void setEmpAtFacility(EmpAtFacility empAtFacility) {
 		this.empAtFacility = empAtFacility;
 	}
 }

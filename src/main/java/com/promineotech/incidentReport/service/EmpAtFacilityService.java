@@ -32,33 +32,29 @@ public class EmpAtFacilityService {
 	private FacilityRepository facilityRepo;
 	
 	
-	public Facility submitNewFacility(Set<Long> EmpAtFacilityIds, Long employeeId) throws Exception{
+	public EmpAtFacility submitNewFacility(Set<Long> employeeIds, Long facilityId) throws Exception{
 	try {
-		Employee employee = employeeRepo.findOne(employeeId);
-		Facility facility = initializeNewFacility(EmpAtFacilityIds, employee);
-		return facilityRepo.save(facility);
+		Facility facility = facilityRepo.findOne(facilityId);
+		EmpAtFacility emp = initializeNewFacility(employeeIds, facility);
+		return repo.save(emp);
 	} catch (Exception e) {
-		logger.error("Exception occurred while trying to create new order for customer: " + employeeId, e);
+		logger.error("Exception occurred while trying to create new order for customer: " + facilityId, e);
 		throw e;
 	}
 }
 
-	private Facility initializeNewFacility(Set<Long> EmpAtFacilityIds, Employee employee) {
-		Facility facility = new Facility();
-		facility.setEmployee(employee);
-		facility.setEmpAtFacility(convertToSet(repo.findAll(EmpAtFacilityIds)));
-		facility.setAddress(facility.getAddress());
-		facility.setState(facility.getState());
-		facility.setCity(facility.getCity());
-		facility.setZip(facility.getZip());
+	private EmpAtFacility initializeNewFacility(Set<Long> employeeIds, Facility facility) {
+		EmpAtFacility emp2 = new EmpAtFacility();
+		emp2.setEmployee(convertToSet(employeeRepo.findAll(employeeIds)));
+		emp2.setFacilities(facility);
 		//addEmpToFacility(facility);
-		return (facility);
+		return (emp2);
 	}
 
-	private Set<EmpAtFacility> convertToSet(Iterable<EmpAtFacility> iterable) {
-		Set<EmpAtFacility> set = new HashSet<EmpAtFacility>();
-		for (EmpAtFacility empAtFacility : iterable) {
-			set.add(empAtFacility);
+	private Set<Employee> convertToSet(Iterable<Employee> iterable) {
+		Set<Employee> set = new HashSet<Employee>();
+		for (Employee employee : iterable) {
+			set.add(employee);
 		}
 		return set;
 	}
