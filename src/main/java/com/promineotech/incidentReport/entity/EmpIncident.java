@@ -16,12 +16,12 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "employee_facility")
-public class EmpAtFacility {
+@Table(name = "employee_incidents")
+public class EmpIncident {
 
 	private Long id;
 	
-	private Set<Facility> facilities;
+	private Set<Incident> incidents;
 	
 	@JsonIgnore
 	private Employee employee;
@@ -35,29 +35,26 @@ public class EmpAtFacility {
 	public void setId(Long id) {
 		this.id = id;
 	}
- 
+
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "empAtFacility",
-	joinColumns = @JoinColumn(name = "empAtFacilitiesId", referencedColumnName = "id"),
-	inverseJoinColumns = @JoinColumn(name = "facilityId", referencedColumnName = "id"))
-	//@ManyToMany(mappedBy = "empAtFacility")
-	public Set<Facility> getFacilities() {
-		return facilities;
+	@JoinTable(name = "empIncidents",
+	joinColumns = @JoinColumn(name = "empIncidentsId", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "incidentsId", referencedColumnName = "id"))
+	public Set<Incident> getIncidents() {
+		return incidents;
 	}
 
-	public void setFacilities(Set<Facility> facilities) {
-		this.facilities = facilities;
+	public void setIncidents(Set<Incident> incidents) {
+		this.incidents = incidents;
 	}
 
 	@ManyToOne
 	@JoinColumn(name = "employeeId")
-	public Employee getEmployees() {
+	public Employee getEmployee() {
 		return employee;
 	}
 
-	public void setEmployees(Employee employees) {
-		this.employee = employees;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
-	
 }
-

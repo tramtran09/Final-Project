@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.promineotech.incidentReport.entity.Facility;
 import com.promineotech.incidentReport.service.FacilityService;
 
+
 @RestController
 @RequestMapping("/facilities")
+//@RequestMapping("/facilities/{id}/employees")
 public class FacilityController {
 
 	@Autowired
@@ -38,6 +40,7 @@ public class FacilityController {
 		return new ResponseEntity<Object>(service.createFacility(facility), HttpStatus.CREATED);
 	}
 	
+	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Object> updateFacility(@RequestBody Facility facility, @PathVariable Long id){
 		try {
@@ -56,4 +59,6 @@ public class FacilityController {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
+	
+
 }

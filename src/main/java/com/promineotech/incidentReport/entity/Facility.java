@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -66,7 +65,6 @@ public class Facility {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	
 	@ManyToOne
 	@JoinColumn(name = "employeeId")
 	public Employee getEmployee() {
@@ -75,12 +73,15 @@ public class Facility {
 	public void setEmployee(Employee employees) {
 		this.employee = employees;
 	}
-	
-	@ManyToMany(mappedBy = "EmpAtFacility")
+//	@ManyToMany(cascade = CascadeType.ALL)
+//	@JoinTable(name = "empAtFacility",
+//	joinColumns = @JoinColumn(name = "facilityId", referencedColumnName = "id"),
+//	inverseJoinColumns = @JoinColumn(name = "empAtFacilityId", referencedColumnName = "id"))
+	@ManyToMany(mappedBy = "facilities")
 	public Set<EmpAtFacility> getEmpAtFacility() {
 		return empAtFacility;
 	}
-	public void setEmpAtFacily(Set<EmpAtFacility> empAtFacility) {
+	public void setEmpAtFacility(Set<EmpAtFacility> empAtFacility) {
 		this.empAtFacility = empAtFacility;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.promineotech.incidentReport.entity.EmpAtFacility;
 import com.promineotech.incidentReport.entity.Employee;
@@ -15,7 +16,7 @@ import com.promineotech.incidentReport.repository.EmployeeRepository;
 import com.promineotech.incidentReport.repository.FacilityRepository;
 
 
-
+@Service
 public class EmpAtFacilityService {
 
 
@@ -30,26 +31,6 @@ public class EmpAtFacilityService {
 	@Autowired
 	private FacilityRepository facilityRepo;
 	
-//	public Iterable<EmpAtFacility> getEmpAtFacilties(){
-//		return repo.findAll();
-//	}
-//	
-//	public EmpAtFacility createEmployeeAtFacility(EmpAtFacility empAtFacilities) {
-//		return repo.save(empAtFacilities);
-//	}
-//	
-//	public EmpAtFacility addEmpAtFacility(EmpAtFacility empAtFacilities, Long id) throws Exception {
-//		try {
-//			EmpAtFacility newEmpAtFac = repo.findOne(id);
-//			newEmpAtFac.setId(id);
-//			newEmpAtFac.setEmployees(employees);
-//			return repo.save(newEmpAtFac);
-//		} catch (Exception e) {
-//			logger.error("Exception occured while trying to update employee at facility" + id, e);
-//			throw new Exception ("Unable to update");
-//		}
-//	}
-
 	
 	public Facility submitNewFacility(Set<Long> EmpAtFacilityIds, Long employeeId) throws Exception{
 	try {
@@ -62,11 +43,10 @@ public class EmpAtFacilityService {
 	}
 }
 
-
 	private Facility initializeNewFacility(Set<Long> EmpAtFacilityIds, Employee employee) {
 		Facility facility = new Facility();
 		facility.setEmployee(employee);
-		facility.setEmpAtFacily(convertToSet(repo.findAll(EmpAtFacilityIds)));
+		facility.setEmpAtFacility(convertToSet(repo.findAll(EmpAtFacilityIds)));
 		facility.setAddress(facility.getAddress());
 		facility.setState(facility.getState());
 		facility.setCity(facility.getCity());
@@ -74,7 +54,6 @@ public class EmpAtFacilityService {
 		//addEmpToFacility(facility);
 		return (facility);
 	}
-
 
 	private Set<EmpAtFacility> convertToSet(Iterable<EmpAtFacility> iterable) {
 		Set<EmpAtFacility> set = new HashSet<EmpAtFacility>();
@@ -85,4 +64,3 @@ public class EmpAtFacilityService {
 	}
 
 }
-

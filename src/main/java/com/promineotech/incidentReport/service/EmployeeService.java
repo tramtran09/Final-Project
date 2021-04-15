@@ -50,6 +50,8 @@ public class EmployeeService {
 			addEmployee.setFirstName(employee.getFirstName());
 			addEmployee.setLastName(employee.getLastName());
 			addEmployee.setDeptName(employee.getDeptName());
+			addEmployee.setFacilities(employee.getFacilities());
+			addEmployee.setIncidents(employee.getIncidents());
 			return repo.save(addEmployee);
 		} catch (Exception e) {
 			logger.error("Exception occured while trying to add employee: " +id, e);

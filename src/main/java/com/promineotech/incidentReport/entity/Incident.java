@@ -3,6 +3,8 @@ package com.promineotech.incidentReport.entity;
 
 import javax.persistence.Column;
 
+import java.util.Set;
+
 //import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -27,6 +30,9 @@ public class Incident {
 	private String injuryDescription;
 	
 	private IncidentCategory incidentCategory;
+	
+	private Set<EmpIncident> employeeIncidents;
+	
 	
 	@JsonIgnore
 	private Employee employees;
@@ -72,7 +78,7 @@ public class Incident {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "empId")
+	@JoinColumn(name = "employeeId")
 	public Employee getEmployee() {
 		return employees;
 	}
@@ -87,6 +93,14 @@ public class Incident {
 	}
 	public void setIncidentCategory(IncidentCategory incidentCategory) {
 		this.incidentCategory = incidentCategory;
+	}
+	
+	@ManyToMany(mappedBy = "incidents")
+	public Set<EmpIncident> getEmployeeIncidents() {
+		return employeeIncidents;
+	}
+	public void setEmployeeIncidents(Set<EmpIncident> employeeIncidents) {
+		this.employeeIncidents = employeeIncidents;
 	}
 	
 }
