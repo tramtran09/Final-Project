@@ -31,9 +31,8 @@ public class Incident {
 	
 	private IncidentCategory incidentCategory;
 	
-	private Set<EmpIncident> employeeIncidents;
-	
-	
+	private EmpIncident empIncident;
+
 	@JsonIgnore
 	private Employee employees;
 	
@@ -78,7 +77,7 @@ public class Incident {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "employeeId")
+	@JoinColumn(name = "empId")
 	public Employee getEmployee() {
 		return employees;
 	}
@@ -95,12 +94,13 @@ public class Incident {
 		this.incidentCategory = incidentCategory;
 	}
 	
-	@ManyToMany(mappedBy = "incidents")
-	public Set<EmpIncident> getEmployeeIncidents() {
-		return employeeIncidents;
+	@OneToOne(mappedBy = "incidents")
+	public EmpIncident getEmpIncident() {
+		return empIncident;
 	}
-	public void setEmployeeIncidents(Set<EmpIncident> employeeIncidents) {
-		this.employeeIncidents = employeeIncidents;
+	public void setEmpIncident(EmpIncident empIncident) {
+		this.empIncident = empIncident;
 	}
 	
+
 }

@@ -73,10 +73,7 @@ public class Facility {
 	public void setEmployee(Employee employees) {
 		this.employee = employees;
 	}
-//	@ManyToMany(cascade = CascadeType.ALL)
-//	@JoinTable(name = "empAtFacility",
-//	joinColumns = @JoinColumn(name = "facilityId", referencedColumnName = "id"),
-//	inverseJoinColumns = @JoinColumn(name = "empAtFacilityId", referencedColumnName = "id"))
+
 	@OneToOne(mappedBy = "facilities")
 	public EmpAtFacility getEmpAtFacility() {
 		return empAtFacility;

@@ -9,8 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,10 +21,11 @@ public class EmpIncident {
 
 	private Long id;
 	
-	private Set<Incident> incidents;
+	private Set<Employee> employee;
 	
 	@JsonIgnore
-	private Employee employee;
+	private Incident incidents;
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,25 +37,24 @@ public class EmpIncident {
 		this.id = id;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "empIncidents",
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinTable(name = "empIncident",
 	joinColumns = @JoinColumn(name = "empIncidentsId", referencedColumnName = "id"),
 	inverseJoinColumns = @JoinColumn(name = "incidentsId", referencedColumnName = "id"))
-	public Set<Incident> getIncidents() {
+	public Incident getIncidents() {
 		return incidents;
 	}
 
-	public void setIncidents(Set<Incident> incidents) {
+	public void setIncidents(Incident incidents) {
 		this.incidents = incidents;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "employeeId")
-	public Employee getEmployee() {
+	@OneToMany(mappedBy = "empIncident")
+	public Set<Employee> getEmployee() {
 		return employee;
 	}
 
-	public void setEmployee(Employee employee) {
+	public void setEmployee(Set<Employee> employee) {
 		this.employee = employee;
 	}
 }

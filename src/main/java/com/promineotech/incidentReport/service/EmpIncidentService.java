@@ -28,36 +28,31 @@ public class EmpIncidentService {
 	private EmployeeRepository employeeRepo;
 	
 	@Autowired
-	private IncidentRepository facilityRepo;
+	private IncidentRepository incidentRepo;
 	
 	
-	public Incident submitNewIncident(Set<Long> EmpIncidentIds, Long employeeId) throws Exception{
+	public EmpIncident submitNewIncident(Set<Long> employeeIds, Long incidentId) throws Exception{
 	try {
-		Employee employee = employeeRepo.findOne(employeeId);
-		Incident facility = initializeNewIncident(EmpIncidentIds, employee);
-		return facilityRepo.save(facility);
+		Incident incident = incidentRepo.findOne(incidentId);
+		EmpIncident empIncident = initializeNewIncident(employeeIds, incident);
+		return repo.save(empIncident);
 	} catch (Exception e) {
-		logger.error("Exception occurred while trying to create new order for customer: " + employeeId, e);
+		logger.error("Exception occurred while trying to create new order for customer: " + incidentId, e);
 		throw e;
 	}
 }
 
-	private Incident initializeNewIncident(Set<Long> EmpIncidentIds, Employee employee) {
-		Incident incident = new Incident();
-		incident.setEmployeeIncidents(convertToSet(repo.findAll(EmpIncidentIds)));
-		incident.setDate(incident.getDate());
-		incident.setTime(incident.getTime());
-		incident.setLocation(incident.getLocation());
-		incident.setIncidentDescription(incident.getIncidentDescription());
-		incident.setInjuryDescription(incident.getInjuryDescription());
-		incident.setIncidentCategory(incident.getIncidentCategory());
-		return (incident);
+	private EmpIncident initializeNewIncident(Set<Long> employeeIds, Incident incident) {
+		EmpIncident empIncident2 = new EmpIncident();
+		empIncident2.setEmployee(convertToSet(employeeRepo.findAll(employeeIds)));
+		empIncident2.setIncidents(incident);
+		return (empIncident2);
 	}
 
-	private Set<EmpIncident> convertToSet(Iterable<EmpIncident> iterable) {
-		Set<EmpIncident> set = new HashSet<EmpIncident>();
-		for (EmpIncident empIncident : iterable) {
-			set.add(empIncident);
+	private Set<Employee> convertToSet(Iterable<Employee> iterable) {
+		Set<Employee> set = new HashSet<Employee>();
+		for (Employee employee : iterable) {
+			set.add(employee);
 		}
 		return set;
 	}

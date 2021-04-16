@@ -10,10 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.sun.istack.NotNull;
 
 @Entity
+//@Table(uniqueConstraints={@UniqueConstraint(columnNames={"username"})})
 public class Employee {
 
 	private Long id;
@@ -27,6 +31,7 @@ public class Employee {
 	private Set<Incident> incidents;
 	
 	private EmpAtFacility emp;
+	private EmpIncident empIncident;
 	
 	private String hash;
 	@Id
@@ -99,6 +104,16 @@ public class Employee {
 	}
 	public void setEmp(EmpAtFacility emp) {
 		this.emp = emp;
+	}
+	
+	@ManyToOne 
+	@JoinColumn(name = "empId")
+	//@OrderColumn(name = "employeeId", nullable = false)
+	public EmpIncident getEmpIncident() {
+		return empIncident;
+	}
+	public void setEmpIncident(EmpIncident empIncident) {
+		this.empIncident = empIncident;
 	}
 	
 	
