@@ -87,6 +87,28 @@ public class FacilityService {
 		return set;
 	}
 	
+	public Facility updateEmpFacility(Set<Long> employeeIds) {
+		Facility facility = new Facility();
+		facility.setEmployees(convertToSet(employeeRepo.findAll(employeeIds)));
+		addEmpToFacility(facility);
+		return facility;
+	}
+	
+	private void addEmpToFacility(Facility facility) {
+		Set<Employee> employees = facility.getEmployees();
+		for(Employee employee : employees) {
+			employee.getFacilities().add(facility);
+		}
+	}
+	
+	private Set<Employee> convertToSet(Iterable<Employee> iterable){
+		Set<Employee> set = new HashSet<Employee>();
+		for(Employee employee: iterable) {
+			set.add(employee);
+		}
+		return set;
+	}
+	
 	public Facility updateFacility(Facility facility, Long id) throws Exception {
 		try {
 			Facility addFacility = facilityRepo.findOne(id);

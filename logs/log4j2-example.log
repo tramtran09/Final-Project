@@ -24489,6 +24489,7 @@ Caused by: org.hibernate.AnnotationException: @OneToOne or @ManyToOne on com.pro
 			--- [nio-8080-exec-1] o.s.w.s.DispatcherServlet               	: FrameworkServlet 'dispatcherServlet': initialization started
 2021-04-16 21:01:42.362	  INFO Trams-MBP.T-mobile.com
 			--- [nio-8080-exec-1] o.s.w.s.DispatcherServlet               	: FrameworkServlet 'dispatcherServlet': initialization completed in 17 ms
+<<<<<<< HEAD
 2021-04-17 11:02:12.202	  INFO Trams-MBP.T-mobile.com
 			--- [       Thread-2] ationConfigEmbeddedWebApplicationContext	: Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@24bfff72: startup date [Fri Apr 16 21:01:07 CDT 2021]; root of context hierarchy
 2021-04-17 11:02:40.007	  INFO Trams-MBP.T-mobile.com
@@ -25927,3 +25928,5 @@ java.lang.Error: Unresolved compilation problem:
 			--- [nio-8080-exec-1] o.s.w.s.DispatcherServlet               	: FrameworkServlet 'dispatcherServlet': initialization started
 2021-04-17 12:14:26.568	  INFO Trams-MBP.T-mobile.com
 			--- [nio-8080-exec-1] o.s.w.s.DispatcherServlet               	: FrameworkServlet 'dispatcherServlet': initialization completed in 20 ms
+=======
+>>>>>>> 9bff95940755110f39351a4816742438797bad38

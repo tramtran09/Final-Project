@@ -11,8 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+<<<<<<< HEAD
 
 
+=======
+import javax.persistence.OneToMany;
+
+>>>>>>> 9bff95940755110f39351a4816742438797bad38
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
