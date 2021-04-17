@@ -6,12 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Facility {
@@ -23,9 +19,8 @@ public class Facility {
 	private String city; 
 	private String zip;
 	
-	private EmpAtFacility empAtFacility;
-	
-	private Employee employee;
+//	@JsonIgnore
+	private Set<Employee> employees;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -65,20 +60,13 @@ public class Facility {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	@ManyToOne
-	@JoinColumn(name = "employeeId")
-	public Employee getEmployee() {
-		return employee;
+
+	@ManyToMany(mappedBy = "facilities")
+	public Set<Employee> getEmployees() {
+		return employees;
 	}
-	public void setEmployee(Employee employees) {
-		this.employee = employees;
+	public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
 	}
 
-	@OneToOne(mappedBy = "facilities")
-	public EmpAtFacility getEmpAtFacility() {
-		return empAtFacility;
-	}
-	public void setEmpAtFacility(EmpAtFacility empAtFacility) {
-		this.empAtFacility = empAtFacility;
-	}
 }

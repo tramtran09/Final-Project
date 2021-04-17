@@ -1,11 +1,16 @@
 package com.promineotech.incidentReport.service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.promineotech.incidentReport.entity.Employee;
 import com.promineotech.incidentReport.entity.Incident;
+import com.promineotech.incidentReport.repository.EmployeeRepository;
 import com.promineotech.incidentReport.repository.IncidentRepository;
 
 @Service
@@ -15,6 +20,9 @@ public class IncidentService {
 
 	@Autowired
 	private IncidentRepository repo;
+	
+	@Autowired
+	private EmployeeRepository employeeRepo;
 	
 	public Incident getIncidentById(Long id) throws Exception{
 		try {
@@ -31,6 +39,28 @@ public class IncidentService {
 	
 	public Incident createIncident(Incident incidents) {
 		return repo.save(incidents);
+	}
+	
+	public Incident updateEmpIncident(Set<Long> employeeIds) {
+		Incident incident = new Incident();
+		incident.setEmployees(convertToSet(employeeRepo.findAll(employeeIds)));
+		addEmpToIncident(incident);
+		return incident;
+	}
+	
+	private void addEmpToIncident(Incident incident) {
+		Set<Employee> employees = incident.getEmployees();
+		for(Employee employee : employees) {
+			employee.getIncidents().add(incident);
+		}
+	}
+	
+	private Set<Employee> convertToSet(Iterable<Employee> iterable){
+		Set<Employee> set = new HashSet<Employee>();
+		for(Employee employee: iterable) {
+			set.add(employee);
+		}
+		return set;
 	}
 	
 	public Incident updateIncident(Incident incident, Long id) throws Exception {

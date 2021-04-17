@@ -5,8 +5,6 @@ import javax.persistence.Column;
 
 import java.util.Set;
 
-//import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -30,11 +27,9 @@ public class Incident {
 	private String injuryDescription;
 	
 	private IncidentCategory incidentCategory;
-	
-	private EmpIncident empIncident;
 
-	@JsonIgnore
-	private Employee employees;
+//	@JsonIgnore
+	private Set<Employee> employees;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -76,12 +71,11 @@ public class Incident {
 		this.date = date;
 	}
 	
-	@ManyToOne
-	@JoinColumn(name = "empId")
-	public Employee getEmployee() {
+	@ManyToMany(mappedBy = "incidents")
+	public Set<Employee> getEmployees() {
 		return employees;
 	}
-	public void setEmployee(Employee employees) {
+	public void setEmployees(Set<Employee> employees) {
 		this.employees = employees;
 	}
 	
@@ -92,14 +86,6 @@ public class Incident {
 	}
 	public void setIncidentCategory(IncidentCategory incidentCategory) {
 		this.incidentCategory = incidentCategory;
-	}
-	
-	@OneToOne(mappedBy = "incidents")
-	public EmpIncident getEmpIncident() {
-		return empIncident;
-	}
-	public void setEmpIncident(EmpIncident empIncident) {
-		this.empIncident = empIncident;
 	}
 	
 

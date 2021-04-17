@@ -1,5 +1,7 @@
 package com.promineotech.incidentReport.controller;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +17,12 @@ import com.promineotech.incidentReport.service.FacilityService;
 
 @RestController
 @RequestMapping("/facilities")
-//@RequestMapping("/facilities/{id}/employees")
 public class FacilityController {
 
 	@Autowired
 	private FacilityService service;
+	
+
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Object> getFacility(@PathVariable Long id){
@@ -39,8 +42,16 @@ public class FacilityController {
 	public ResponseEntity<Object> createFacility(@RequestBody Facility facility){
 		return new ResponseEntity<Object>(service.createFacility(facility), HttpStatus.CREATED);
 	}
-	
-	
+
+	@RequestMapping(value="/{id}/employees", method=RequestMethod.POST)
+	public ResponseEntity<Object> createEmployee(@RequestBody Set<Long> employeeIds){
+		try {
+			return new ResponseEntity<Object>(service.updateEmpFacility(employeeIds), HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<Object>(e,HttpStatus.BAD_REQUEST);
+		}
+	}
+		
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Object> updateFacility(@RequestBody Facility facility, @PathVariable Long id){
 		try {

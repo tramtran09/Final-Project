@@ -2,22 +2,21 @@ package com.promineotech.incidentReport.entity;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 @Entity
-//@Table(uniqueConstraints={@UniqueConstraint(columnNames={"username"})})
 public class Employee {
 
 	private Long id;
@@ -27,11 +26,11 @@ public class Employee {
 	private String password;
 	private String deptName;
 	
+	@JsonIgnore
 	private Set<Facility> facilities;
-	private Set<Incident> incidents;
 	
-	private EmpAtFacility emp;
-	private EmpIncident empIncident;
+	@JsonIgnore
+	private Set<Incident> incidents;
 	
 	private String hash;
 	@Id
@@ -54,7 +53,7 @@ public class Employee {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	@Column(unique=true)
+	@Column(unique = true)
 	@NotNull
 	public String getUsername() {
 		return username;
@@ -75,7 +74,10 @@ public class Employee {
 		this.deptName = deptName;
 	}
 	
-	@OneToMany(mappedBy = "employee")
+	@ManyToMany(cascade= CascadeType.ALL)
+	@JoinTable(name = "emp_facility", 
+	joinColumns = @JoinColumn(name = "employeeId", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "facilityId", referencedColumnName = "id"))
 	public Set<Facility> getFacilities() {
 		return facilities;
 	}
@@ -83,7 +85,10 @@ public class Employee {
 		this.facilities = facilities;
 	}
 	
-	@OneToMany(mappedBy = "employee")
+	@ManyToMany(cascade= CascadeType.ALL)
+	@JoinTable(name = "emp_incident", 
+	joinColumns = @JoinColumn(name = "employeeId", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "incidentId", referencedColumnName = "id"))
 	public Set<Incident> getIncidents() {
 		return incidents;
 	}
@@ -95,25 +100,6 @@ public class Employee {
 	}
 	public void setHash(String hash) {
 		this.hash = hash;
-	}
-	
-	@ManyToOne
-	@JoinColumn(name = "employeeId")
-	public EmpAtFacility getEmp() {
-		return emp;
-	}
-	public void setEmp(EmpAtFacility emp) {
-		this.emp = emp;
-	}
-	
-	@ManyToOne 
-	@JoinColumn(name = "empId")
-	//@OrderColumn(name = "employeeId", nullable = false)
-	public EmpIncident getEmpIncident() {
-		return empIncident;
-	}
-	public void setEmpIncident(EmpIncident empIncident) {
-		this.empIncident = empIncident;
 	}
 	
 	

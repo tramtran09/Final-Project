@@ -2,13 +2,17 @@ package com.promineotech.incidentReport.service;
 
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.promineotech.incidentReport.entity.Employee;
 import com.promineotech.incidentReport.entity.Facility;
-
+import com.promineotech.incidentReport.repository.EmployeeRepository;
 import com.promineotech.incidentReport.repository.FacilityRepository;
 
 @Service
@@ -19,8 +23,10 @@ public class FacilityService {
 	@Autowired
 	private FacilityRepository facilityRepo;
 	
-	
+	@Autowired
+	private EmployeeRepository employeeRepo;
 
+	
 	public Facility getFacilityById(Long id) throws Exception{
 		try {
 			return facilityRepo.findOne(id);
@@ -37,6 +43,49 @@ public class FacilityService {
 	public Facility createFacility(Facility facility) {
 		return facilityRepo.save(facility);
 	}
+	 
+//	public Facility submitFacility(Long employeeIds, Long id) {
+//		try {
+//			Employee employee = employeeRepo.findOne(employeeIds);
+//			Facility facility = facilityRepo.findOne(id);
+//			return facilityRepo.save(facility);
+//		} catch (Exception e) {
+//			logger.error("Exception occurred while trying to add facility for employee." + employeeIds, e);
+//			throw e;
+//		}
+//	}
+//	
+//	public Facility completeFacility(Long id) {
+//			Facility facility = facilityRepo.findOne(id);
+//			return facilityRepo.save(facility);
+//	}
+	
+	public Facility updateEmpFacility(Set<Long> employeeIds) {
+		Facility facility = new Facility();
+		facility.setEmployees(convertToSet(employeeRepo.findAll(employeeIds)));
+//		facility.setName(facility.getName());
+//		facility.setAddress(facility.getAddress());
+//		facility.setState(facility.getState());
+//		facility.setCity(facility.getCity());
+//		facility.setZip(facility.getZip());
+		addEmpToFacility(facility);
+		return facilityRepo.save(facility);
+	}
+	
+	private void addEmpToFacility(Facility facility) {
+		Set<Employee> employees = facility.getEmployees();
+		for(Employee employee : employees) {
+			employee.getFacilities().add(facility);
+		}
+	}
+	
+	private Set<Employee> convertToSet(Iterable<Employee> iterable){
+		Set<Employee> set = new HashSet<Employee>();
+		for(Employee employee: iterable) {
+			set.add(employee);
+		}
+		return set;
+	}
 	
 	public Facility updateFacility(Facility facility, Long id) throws Exception {
 		try {
@@ -46,7 +95,6 @@ public class FacilityService {
 			addFacility.setState(facility.getState());
 			addFacility.setCity(facility.getCity());
 			addFacility.setZip(facility.getZip());
-			addFacility.setEmployee(facility.getEmployee());
 			return facilityRepo.save(addFacility);
 		} catch (Exception e) {
 			logger.error("Exception occurred while trying to add facility: " + id, e);
