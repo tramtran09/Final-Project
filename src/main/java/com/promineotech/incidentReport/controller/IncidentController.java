@@ -1,5 +1,7 @@
 package com.promineotech.incidentReport.controller;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +40,14 @@ public class IncidentController {
 		return new ResponseEntity<Object>(service.createIncident(incident), HttpStatus.CREATED);
 	}
 	
+	@RequestMapping(value="/{id}/employees", method=RequestMethod.POST)
+	public ResponseEntity<Object> createEmployee(@RequestBody Set<Long> employeeIds){
+		try {
+			return new ResponseEntity<Object>(service.updateEmpIncident(employeeIds), HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<Object>(e,HttpStatus.BAD_REQUEST);
+		}
+	}
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Object> updateIncident(@RequestBody Incident incident, @PathVariable Long id){
 		try {

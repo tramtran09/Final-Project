@@ -53,14 +53,11 @@ public class App
     	System.out.println( BCrypt.checkpw( password, hashAndSalt ) );
 	}
 	
-
-
-	
     public static void main( String[] args )
     {
         SpringApplication.run(App.class, args);
-        JWTStuff();
-    	System.out.println();
-    	userAuthenticationStuff();
+//        JWTStuff();
+//    	System.out.println();
+//    	userAuthenticationStuff();
     }
 }
